@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nbno
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nbno
+  namespace: nbno
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nbno-full-access
+  namespace: nbno
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nbno
+  namespace: nbno
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nbno-full-access
+subjects:
+- kind: Group
+  name: k8s_nasa
+- kind: Group
+  name: k8s_newton
+- kind: ServiceAccount
+  name: nbno
+  namespace: nbno
