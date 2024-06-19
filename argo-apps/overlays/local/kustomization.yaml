@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  - ../../../argo-apps/base/shared-apps.yaml
+  - ../../../argo-apps/base/configserver.yaml
+  - ../../../argo-apps/base/catalog-metadata-service.yaml
+  - ../../../argo-apps/base/catalog-search-index-service.yaml
+  - ../../../argo-apps/base/catalog-item-service.yaml
