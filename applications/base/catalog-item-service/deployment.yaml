@@ -17,7 +17,7 @@ spec:
       serviceAccountName: nbno
       containers:
         - name: catalog-item-service
-          image: harbor.nb.no/nbtest/catalog-item-service-rest:3.1.2-SNAPSHOT
+          image: harbor.nb.no/nb/catalog-item-service-rest:3.2.3-243
           imagePullPolicy: Always
           ports:
             - containerPort: 8004

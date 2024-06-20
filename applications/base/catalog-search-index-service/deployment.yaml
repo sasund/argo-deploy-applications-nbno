@@ -17,7 +17,7 @@ spec:
       serviceAccountName: nbno
       containers:
         - name: catalog-search-index-service
-          image: harbor.nb.no/nbtest/catalog-search-index-rest:3.2.3-252
+          image: harbor.nb.no/nb/catalog-search-index-rest:3.2.3-252
           imagePullPolicy: Always
           ports:
             - containerPort: 8006
