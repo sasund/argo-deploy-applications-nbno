@@ -6,3 +6,4 @@ namespace: nbno
 resources:
   - catalog-metadata-service-ingress.yaml
   - catalog-item-service-ingress.yaml
+  - catalog-iiif-presentation-service-ingress.yaml
