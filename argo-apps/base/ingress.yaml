@@ -19,9 +19,9 @@ spec:
       - CreateNamespace=true
       - PrunePropagationPolicy=foreground
 
-    # automated:
-    #   prune: true
-    #   selfHeal: true
+    automated:
+      prune: true
+      selfHeal: true
 
   sources:
     - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-nbno.git
