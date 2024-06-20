@@ -24,7 +24,7 @@ spec:
     #   selfHeal: true
 
   sources:
-    - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications.git
+    - repoURL: ${ARGOCD_ENV_GITHUB_REPO}/argo-deploy-applications-nbno.git
       targetRevision: main
       path: applications/overlays/local/catalog-search-index-service
       # Note: envsubst envs are injected through parent app via helm chart in tf.
