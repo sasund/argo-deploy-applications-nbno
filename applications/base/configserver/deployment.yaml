@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+spec:
+  selector:
+    matchLabels:
+      app: config-server
+  replicas: 1 # tells deployment to run 3 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      serviceAccountName: nbno
+      containers:
+        - name: config-server
+          image: harbor.nb.no/nb/config-server:3.2.1-105
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8888
+          env:
+            - name: JAVA_OPTS
+              value: -Dspring.profiles.active=docker,dev,auaulocal
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: tz-config
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8888
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8888
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      volumes:
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Oslo

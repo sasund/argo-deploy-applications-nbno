@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    release: kube-prometheus-stack
+  name: kube-prometheus-stack-springactuator
+  namespace: observability
+spec:
+  endpoints:
+    - interval: 30s
+      path: /actuator/prometheus
+      port: http
+  jobLabel: k8s-app
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app: springactuator

@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: nbno
 
 resources:
-  - ../../../../applications/base/configserver
+  - ../../../../applications/base/ingress
