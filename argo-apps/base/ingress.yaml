@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nbno-shared-apps-rollout
+  name: nbno-ingress-rollout
   namespace: argocd
   annotations:
     # Improve performance by only syncing the paths that are needed https://argo-cd.readthedocs.io/en/latest/operator-manual/high_availability/#manifest-paths-annotation
