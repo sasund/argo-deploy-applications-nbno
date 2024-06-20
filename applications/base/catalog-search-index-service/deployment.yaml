@@ -23,7 +23,7 @@ spec:
             - containerPort: 8006
           env:
             - name: JAVA_OPTS
-              value: -Dspring.profiles.active=docker,dev,
+              value: -Dspring.profiles.active=docker,dev,auaulocal
           volumeMounts:
             - mountPath: /etc/localtime
               name: tz-config
