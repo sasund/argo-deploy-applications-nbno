@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: nbno
 
 resources:
-  - rbac.yaml
-  - servicemonitor-springactuator.yaml
+  - ../../../../applications/base/shared-apps
