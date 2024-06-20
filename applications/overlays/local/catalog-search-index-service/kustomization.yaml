@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: nbno
 
 resources:
-  - ../../../../applications/base/catalog-search-index-searvice
+  - ../../../../applications/base/catalog-search-index-service
