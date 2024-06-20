@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-search-index-service
+  labels:
+    app: catalog-search-index-service
+spec:
+  selector:
+    matchLabels:
+      app: catalog-search-index-service
+  replicas: 1 # tells deployment to run 3 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: catalog-search-index-service
+    spec:
+      serviceAccountName: nbno
+      containers:
+        - name: catalog-search-index-service
+          image: harbor.nb.no/nbtest/catalog-search-index-rest:3.2.3-252
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8006
+          env:
+            - name: JAVA_OPTS
+              value: -Dspring.profiles.active=docker,dev,
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: tz-config
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8006
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8006
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      volumes:
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Oslo

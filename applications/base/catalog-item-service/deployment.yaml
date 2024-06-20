@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-item-service
+  labels:
+    app: catalog-item-service
+spec:
+  selector:
+    matchLabels:
+      app: catalog-item-service
+  replicas: 1 # tells deployment to run 3 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: catalog-item-service
+    spec:
+      serviceAccountName: nbno
+      containers:
+        - name: catalog-item-service
+          image: harbor.nb.no/nbtest/catalog-item-service-rest:3.1.2-SNAPSHOT
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8004
+          env:
+            - name: JAVA_OPTS
+              value: -Dspring.profiles.active=docker,dev,auaulocal
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: tz-config
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8004
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8004
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      volumes:
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Oslo

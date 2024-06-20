@@ -6,7 +6,7 @@ namespace: argocd
 resources:
   - ../../../argo-apps/base/shared-apps.yaml
   - ../../../argo-apps/base/configserver.yaml
-  #- ../../../argo-apps/base/catalog-metadata-service.yaml
-  #- ../../../argo-apps/base/catalog-search-index-service.yaml
-  #- ../../../argo-apps/base/catalog-item-service.yaml
+  - ../../../argo-apps/base/catalog-metadata-service.yaml
+  - ../../../argo-apps/base/catalog-search-index-service.yaml
+  - ../../../argo-apps/base/catalog-item-service.yaml
   - ../../../argo-apps/base/ingress.yaml
