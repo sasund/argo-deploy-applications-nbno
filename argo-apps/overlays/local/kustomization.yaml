@@ -10,4 +10,5 @@ resources:
   - ../../../argo-apps/base/catalog-search-index-service.yaml
   - ../../../argo-apps/base/catalog-item-service.yaml
   - ../../../argo-apps/base/catalog-iiif-presentation-service.yaml
+  - ../../../argo-apps/base/catalog-iiif-content-search-service.yaml
   - ../../../argo-apps/base/ingress.yaml

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-iiif-content-search
+  labels:
+    app: catalog-iiif-content-search
+spec:
+  selector:
+    matchLabels:
+      app: catalog-iiif-content-search
+  replicas: 1 # tells deployment to run 3 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: catalog-iiif-content-search
+    spec:
+      serviceAccountName: nbno
+      containers:
+        - name: catalog-iiif-content-search
+          image: harbor.nb.no/nb/catalog-iiif-content-search-service-rest:3.2.1-72
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8009
+          env:
+            - name: JAVA_OPTS
+              value: -Dspring.profiles.active=docker,dev,auaulocal
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: tz-config
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8009
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8009
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      volumes:
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Oslo
