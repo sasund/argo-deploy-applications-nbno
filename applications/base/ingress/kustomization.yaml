@@ -7,3 +7,5 @@ resources:
   - catalog-metadata-service-ingress.yaml
   - catalog-item-service-ingress.yaml
   - catalog-iiif-presentation-service-ingress.yaml
+  - catalog-iiif-content-search-service-ingress.yaml
+  - spring-boot-admin-service-ingress.yaml

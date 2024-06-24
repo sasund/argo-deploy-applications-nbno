@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-admin
+  labels:
+    app: spring-boot-admin
+spec:
+  selector:
+    matchLabels:
+      app: spring-boot-admin
+  replicas: 1 # tells deployment to run 3 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: spring-boot-admin
+    spec:
+      serviceAccountName: nbno
+      containers:
+        - name: spring-boot-admin
+          image: harbor.nb.no/nb/spring-boot-admin:3.2.1-53
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8060
+          env:
+            - name: JAVA_OPTS
+              value: -Dspring.profiles.active=docker,local
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: tz-config
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8060
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8060
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+      volumes:
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Europe/Oslo

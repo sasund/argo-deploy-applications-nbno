@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catalog-iiif-content-search
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: api.local.nb.no
+    http:
+      paths:
+      - path: /catalog/v1/contentsearch
+        pathType: Prefix
+        backend:
+          service:
+            name: catalog-iiif-content-search
+            port:
+              number: 8009

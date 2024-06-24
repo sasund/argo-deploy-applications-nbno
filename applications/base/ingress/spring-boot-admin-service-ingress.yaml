@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-boot-admin-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.local.nb.no
+      http:
+        paths:
+          - path: /adminserver-nbno
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-boot-admin
+                port:
+                  number: 8060

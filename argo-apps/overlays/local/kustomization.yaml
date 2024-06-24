@@ -11,4 +11,5 @@ resources:
   - ../../../argo-apps/base/catalog-item-service.yaml
   - ../../../argo-apps/base/catalog-iiif-presentation-service.yaml
   - ../../../argo-apps/base/catalog-iiif-content-search-service.yaml
+  - ../../../argo-apps/base/spring-boot-admin-service.yaml
   - ../../../argo-apps/base/ingress.yaml
